@@ -1,0 +1,31 @@
+{
+    "name": "denmarty/base-service-repository",
+    "description": "This package adds base classes for a service/repository with base methods and also adds a command to gerenate custom services/repositories.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Denmarty\\BaseServiceRepository\\": "denmarty/base-service-repository/src/"
+        }
+    },
+    "require": {
+        "php": "^8.0"
+    },
+    "authors": [
+        {
+            "name": "denis",
+            "email": "denisarshavin98@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Denmarty\\BaseServiceRepository\\Providers\\BaseServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "master": "0.1"
+        }
+    }
+}
