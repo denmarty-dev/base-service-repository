@@ -5,7 +5,7 @@ namespace Denmarty\BaseServiceRepository\Providers;
 use Denmarty\BaseServiceRepository\Console\Commands\MakeServiceCommand;
 use Illuminate\Support\ServiceProvider;
 
-class BaseServiceProvider extends ServiceProvider
+class BSRServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
