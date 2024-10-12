@@ -90,7 +90,7 @@ class MakeServiceCommand extends Command
 
 namespace App\Services{$servicePath}\\Repository;
 
-use App\Services\BaseRepositoryInterface;
+use use Denmarty\BaseServiceRepository\BaseService\BaseRepositoryInterface;
 
 interface {$serviceName}RepositoryInterface extends BaseRepositoryInterface
 {
@@ -147,7 +147,7 @@ interface {$serviceName}RepositoryInterface extends BaseRepositoryInterface
 namespace App\Services{$servicePath}\\Repository;
 
 use App\Models{$modelPath};
-use App\Services\BaseRepository;
+use Denmarty\BaseServiceRepository\BaseService\BaseRepository;
 
 class {$serviceName}Repository extends BaseRepository implements {$serviceName}RepositoryInterface
 {
@@ -208,7 +208,7 @@ class {$serviceName}Repository extends BaseRepository implements {$serviceName}R
 
 namespace App\Services{$servicePath};
 
-use App\Services\BaseService;
+use Denmarty\BaseServiceRepository\BaseService\BaseService;
 use App\Services{$servicePath}\Repository\\{$serviceName}RepositoryInterface;
 
 class {$serviceName}Service extends BaseService
