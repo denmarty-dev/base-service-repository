@@ -24,6 +24,6 @@
             "providers": [
                 "Denmarty\\BaseServiceRepository\\Providers\\BSRServiceProvider"
             ]
-        },
+        }
     }
 }
