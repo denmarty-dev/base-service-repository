@@ -47,9 +47,15 @@ abstract class BaseDtoService
      * @param array $data
      * @return Model|Builder
      */
-    public function create(array $data): Model|Builder
+    public function create(array $data, $isDto = true): Model|Builder|Data
     {
-        return $this->baseRepository->create($data);
+        $result = $this->baseRepository->create($data);
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -67,9 +73,15 @@ abstract class BaseDtoService
      * @param array $data
      * @return Model|null
      */
-    public function updateByUUID(string $uuid, array $data): Model|null
+    public function updateByUUID(string $uuid, array $data, $isDto = true): Model|null|Data
     {
-        return $this->baseRepository->updateByUUID($uuid, $data);
+        $result = $this->baseRepository->updateByUUID($uuid, $data);
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -77,9 +89,15 @@ abstract class BaseDtoService
      * @param array $data
      * @return Model|null
      */
-    public function updateById(int $id, array $data): Model|null
+    public function updateById(int $id, array $data, $isDto = true): Model|null|Data
     {
-        return $this->baseRepository->updateById($id, $data);
+        $result = $this->baseRepository->updateById($id, $data);
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -87,9 +105,15 @@ abstract class BaseDtoService
      * @param array $data
      * @return Model|Builder
      */
-    public function updateOrCreate(array $attr, array $data): Model|Builder
+    public function updateOrCreate(array $attr, array $data, $isDto = true): Model|Builder|Data
     {
-        return $this->baseRepository->updateOrCreate($attr, $data);
+        $result = $this->baseRepository->updateOrCreate($attr, $data);
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -130,9 +154,15 @@ abstract class BaseDtoService
      * @param string $uuid
      * @return Model|Collection|Builder|array|null
      */
-    public function getByUuid(string $uuid): Model|Collection|Builder|array|null
+    public function getByUuid(string $uuid, $isDto = true): Model|Collection|Builder|array|null|Data
     {
-        return $this->baseRepository->getByUuid($uuid);
+        $result = $this->baseRepository->getByUuid($uuid);
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
@@ -156,14 +186,21 @@ abstract class BaseDtoService
         mixed $value,
         string $columnName = 'id',
         ?array $relations = null,
-        string $operator = '='
-    ): ?Model {
-        return $this->index()
+        string $operator = '=',
+        $isDto = true
+    ): null|Model|Data {
+        $result = $this->index()
             ->where($columnName, $operator, $value)
             ->when($relations, function ($query) use ($relations) {
                 return $query->with($relations);
             })
             ->first();
+
+        if ($isDto) {
+            $result = $this->dto::from($result);
+        }
+
+        return $result;
     }
 
     /**
