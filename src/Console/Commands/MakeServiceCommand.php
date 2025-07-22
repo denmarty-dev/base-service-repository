@@ -33,13 +33,14 @@ class MakeServiceCommand extends Command
 
         $modelNameExplode = explode('\\', $modelName);
 
-        $modelPath = '';
-        if (!empty($modelNameExplode[1])) {
-            $modelTitle = end($modelNameExplode);
-            $modelPath  = $modelNameExplode[0];
-        } else {
-            $modelTitle = $modelNameExplode[0];
-        }
+	    $modelPath        = '';
+	    if (count($modelNameExplode) > 1) {
+		    $modelTitle = end($modelNameExplode);
+		    array_pop($modelNameExplode);
+		    $modelPath = implode('\\', $modelNameExplode);
+	    } else {
+		    $modelTitle = $modelNameExplode[0];
+	    }
 
         $this->createRepositoryInterface($modelPath, $serviceName);
         $this->createRepository($modelPath, $serviceName, $modelTitle);
