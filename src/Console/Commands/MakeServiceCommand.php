@@ -159,8 +159,6 @@ class {$serviceName}Repository extends BaseRepository implements {$serviceName}R
     public function __construct($modelTitle \$model)
     {
         parent::__construct(\$model);
-
-        \$this->model = \$model;
     }
 }
 
