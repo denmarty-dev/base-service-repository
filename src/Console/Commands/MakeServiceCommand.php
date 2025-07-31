@@ -33,17 +33,18 @@ class MakeServiceCommand extends Command
 
         $modelNameExplode = explode('\\', $modelName);
 
-	    $modelPath        = '';
-	    if (count($modelNameExplode) > 1) {
-		    $modelTitle = end($modelNameExplode);
-		    array_pop($modelNameExplode);
-		    $modelPath = implode('\\', $modelNameExplode);
-	    } else {
-		    $modelTitle = $modelNameExplode[0];
-	    }
+        $modelPath = '';
+        if (count($modelNameExplode) > 1) {
+            $modelTitle = end($modelNameExplode);
+            array_pop($modelNameExplode);
+            $modelPath = implode('\\', $modelNameExplode);
+        } else {
+            $modelTitle = $modelNameExplode[0];
+        }
 
         $this->createRepositoryInterface($modelPath, $serviceName);
         $this->createRepository($modelPath, $serviceName, $modelTitle);
+        $this->createServiceInterface($modelPath, $serviceName);
         $this->createService($modelPath, $serviceName);
 
         return 0;
@@ -165,6 +166,51 @@ class {$serviceName}Repository extends BaseRepository implements {$serviceName}R
 ";
     }
 
+    private function createServiceInterface(string $modelPath, string $serviceName): void
+    {
+        $template = $this->createServiceInterfaceTemplate($serviceName);
+
+        $path = app_path(
+            "Services" . DIRECTORY_SEPARATOR . $serviceName . DIRECTORY_SEPARATOR . str_replace(
+                '\\',
+                DIRECTORY_SEPARATOR,
+                "{$serviceName}ServiceInterface.php"
+            )
+        );
+
+        $pathDir = app_path(
+            "Services" . DIRECTORY_SEPARATOR . $serviceName . DIRECTORY_SEPARATOR
+        );
+
+        if (!is_dir($pathDir)) {
+            mkdir($pathDir, 0755, true);
+        }
+
+        file_put_contents($path, $template);
+
+        $this->info(str_replace(DIRECTORY_SEPARATOR, '\\', $path));
+    }
+
+    /**
+     * @param string $serviceName
+     * @return string
+     */
+    private function createServiceInterfaceTemplate(string $serviceName): string
+    {
+        $servicePath = '\\' . $serviceName;
+        return
+            "<?php
+
+namespace App\Services{$servicePath};
+
+use Denmarty\BaseServiceRepository\BaseService\BaseService;
+use App\Services{$servicePath}\Repository\\{$serviceName}RepositoryInterface;
+
+interface {$serviceName}ServiceInterface
+{
+}";
+    }
+
     /**
      * @param string $modelPath
      * @param string $serviceName
@@ -210,8 +256,7 @@ namespace App\Services{$servicePath};
 use Denmarty\BaseServiceRepository\BaseService\BaseService;
 use App\Services{$servicePath}\Repository\\{$serviceName}RepositoryInterface;
 
-class {$serviceName}Service extends BaseService
-{
+class {$serviceName}Service extends BaseService implements {$serviceName}ServiceInterface {
 
     public function __construct({$serviceName}RepositoryInterface \$baseRepository)
     {
