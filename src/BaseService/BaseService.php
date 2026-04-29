@@ -20,7 +20,7 @@ abstract class BaseService
      * @param array|null $attr
      * @return Model|Builder
      */
-    public function index(array $attr = null): Model|Builder
+    public function index(array $attr = []): Model|Builder
     {
         return $this->baseRepository->index($attr);
     }
