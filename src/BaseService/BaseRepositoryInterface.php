@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 interface BaseRepositoryInterface
 {
     /**
-     * @param array|null $attr
+     * @param array $attr
      * @return Builder
      */
     public function index(array $attr = []): Builder;
