@@ -23,7 +23,7 @@ abstract class BaseDtoService
      * @param array $attr
      * @return Builder
      */
-    public function index(array $attr = []): Model|Builder
+    public function index(array $attr = []): Builder
     {
         return $this->baseRepository->index($attr);
     }
