@@ -32,7 +32,7 @@ class BaseRepository implements BaseRepositoryInterface
      * @param array|null $attr
      * @return Builder
      */
-    public function index(array $attr = null): Builder
+    public function index(array $attr = []): Builder
     {
         return $attr ? $this->model->query()->select($attr) : $this->model->query();
     }
