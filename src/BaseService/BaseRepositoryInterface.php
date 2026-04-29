@@ -15,7 +15,7 @@ interface BaseRepositoryInterface
      * @param array|null $attr
      * @return Builder
      */
-    public function index(array $attr = null): Builder;
+    public function index(array $attr = []): Builder;
 
     /**
      * @param array $data
