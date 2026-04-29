@@ -20,8 +20,8 @@ abstract class BaseDtoService
     public Data $dto;
 
     /**
-     * @param array|null $attr
-     * @return Model|Builder
+     * @param array $attr
+     * @return Builder
      */
     public function index(array $attr = []): Model|Builder
     {
