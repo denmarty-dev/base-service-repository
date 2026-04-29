@@ -17,10 +17,10 @@ abstract class BaseService
     public BaseRepositoryInterface $baseRepository;
 
     /**
-     * @param array|null $attr
-     * @return Model|Builder
+     * @param array $attr
+     * @return Builder
      */
-    public function index(array $attr = []): Model|Builder
+    public function index(array $attr = []): Builder
     {
         return $this->baseRepository->index($attr);
     }
