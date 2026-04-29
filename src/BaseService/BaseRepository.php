@@ -29,7 +29,7 @@ class BaseRepository implements BaseRepositoryInterface
     /**
      * Get a new query builder for the model's table.
      *
-     * @param array|null $attr
+     * @param array $attr
      * @return Builder
      */
     public function index(array $attr = []): Builder
