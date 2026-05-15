@@ -1,5 +1,4 @@
- <?php
-
+<?php
   namespace Denmarty\BaseServiceRepository\BaseService;
 
   use Illuminate\Database\Eloquent\Builder;
